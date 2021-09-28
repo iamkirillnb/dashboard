@@ -1,0 +1,82 @@
+/*.multiselect {*/
+/*    width: 250px;*/
+/*}*/
+
+.select_item {
+    border: 1px solid #1D1725;
+    color: #ACAEB6;
+    border-radius: 5px;
+    width: 200px;
+    padding: 4px 5px;
+}
+
+#left_select_box {
+    position: relative;
+    font-family: Verdand, sans-serif;
+}
+
+#right_select_box {
+    position: relative;
+    font-family: Verdand, sans-serif;
+}
+
+.selectBox select {
+    width: 100%;
+    font-weight: bold;
+}
+
+
+.overSelect_indicator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.overSelect_filter {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.overSelect_fields {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#visualization_select_box {
+    margin-top: 16px;
+}
+
+
+#checkboxes_visualization {
+    position: absolute;
+    z-index: 1;
+    background: white;
+    width: 80%;
+    border: 1px solid #5e5a64;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#checkboxes_visualization {
+    display: none;
+}
+
+#checkboxes_visualization label {
+    display: block;
+    padding-left: 10px;
+}
+
+
+#checkboxes_visualization input {
+    margin-left: -16px;
+}
+

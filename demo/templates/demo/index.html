@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<h4>Фильтр по показателю и периоду!</h4>
+{% for i in names %}
+    <p>{{ i.name }}--{{ i.fact }}--{{ i.plan }}--{{ i.date }}</p>
+{% endfor %}
+<h4>Вывод уникальных значений!</h4>
+{% for key, value in unique.items %}
+        <p>{{ key }}  -- {{ value }}</p>
+{% endfor %}
+
+
+
+<h4>begin</h4>
+<div id="chart"></div>
+<h4>end</h4>
+<script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script src="{% static 'demo/js/script.js' %}"></script>
+</body>
+</html>

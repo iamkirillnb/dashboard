@@ -1,0 +1,95 @@
+<div id="stylish">
+    <div class="row m-0">
+        <!-- Показатель -->
+        <div class="col pl-5 pr-2">
+            <div class="row">
+                <div class="col-sm header_line pt-1">
+                    <div class="row">
+                        <h2 class="h3_my font-weight-bold p-2">ИСХОДНЫЕ ДАННЫЕ</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h3 class="h3_my font-weight-light">ЦЕЛОЕ</h3>
+                        </div>
+                        <div class="col-sm">
+                            <!-- ЦЕЛОЕ -->
+                            {% include 'mainapp/include/stylish/initial_data_integer.html' %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h3 class="h3_my font-weight-light">ДОЛЯ</h3>
+                        </div>
+                        <div class="col-sm">
+                            <!-- ДОЛЯ -->
+                            {% include 'mainapp/include/stylish/initial_data_part.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm header_line pt-1">
+                    <div class="row">
+                        <h2 class="h3_my font-weight-bold p-2">ПАРАМЕТРЫ ВЫВОДА</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                <label class="form-check-label" for="flexCheckDefault1">
+                                    Относительное значение
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                <label class="form-check-label" for="flexCheckDefault2">
+                                    Абсолютное значение
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                                <label class="form-check-label" for="flexCheckDefault3">
+                                    Цветовая шкала
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm header_line pt-1">
+                    <div class="row">
+                        <h2 class="h3_my font-weight-bold p-2">ОФОРМЛЕНИЕ</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h3 class="h3_my font-weight-light">ЦВЕТ</h3>
+                        </div>
+                        <div class="col-sm">
+                            <div id="stylish_checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-sm header_line pt-1">
+                    <div class="col-sm">
+                        <h2 class="h3_my font-weight-bold p-2">ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР</h2>
+                    </div>
+                    <div class="col-sm">
+                        <div class="promo">
+                            <h3 class="h3_my font-weight-light p-1 ">НАЗВАНИЕ_</h3>
+                            <div id="chart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

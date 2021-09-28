@@ -1,0 +1,25 @@
+{##}
+{#<div id="right_select_box"#}
+{#     onclick="showCheckboxesFilter()">#}
+{#    <select class="select_item">#}
+{#        <option>Выберите фильтр:&nbsp;</option>#}
+{#    </select>#}
+{#    <div class="overSelect_filter"></div>#}
+{#</div>#}
+{#<div id="checkboxes_filter">#}
+{#    {% for j in fields_indicator %}#}
+{#        <label  class="form-check-label pl-4" for="{{ j }}">#}
+{#            <input class="form-check-input p-2" type="checkbox" name="checkbox_filter" id="{{ j }}" value="{{ j }}"/>#}
+{#            {{ j }}#}
+{#        </label>#}
+{#    {% endfor %}#}
+{#</div>#}
+
+<div class="form_style">
+    <select id="checkboxes_filter" class="selectpicker show-menu-arrow" multiple>
+    <option  disabled>Выберите показатель</option>
+        {% for j in fields_indicator %}
+            <option value="{{ j }}">{{ j }}</option>
+        {% endfor %}
+    </select>
+</div>

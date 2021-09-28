@@ -1,0 +1,452 @@
+
+* body {
+    font-family: Verdana, sans-serif;
+    height: 100%;
+    min-width: 1202px;
+    margin: 0;
+    padding: 0;
+}
+
+
+.center_contextine {
+    margin: 10px 40px 0;
+}
+
+.dashboard {
+    min-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+    align-content: start;
+    box-sizing: border-box;
+}
+
+.dashboard * {
+    border-radius: 10px;
+    margin: 6px;
+}
+
+.A_one {
+    width: calc(100% - 55% - 36px);
+    height: 240px;
+    background-color: #f3f3f4;
+}
+
+.group_A_2_3 {
+    width: 25%;
+    /*margin-top: 0;*/
+}
+
+.A_two {
+    height: 114px;
+    background-color: #f3f3f4;
+    margin: 0 0 12px;
+}
+
+.A_three {
+    height: 114px;
+    background-color: #f3f3f4;
+    margin: 0;
+}
+
+.A_four {
+    width: 30%;
+    height: 240px;
+    background-color: #f3f3f4;
+}
+
+
+.B_one {
+    width: 25%;
+    height: 220px;
+    background-color: #f3f3f4;
+}
+
+.B_two {
+    width: calc(100% - 55% - 36px);
+    min-height: 220px;
+    background-color: #f3f3f4;
+    position: relative;
+}
+
+.empty {
+    width: 30%;
+    height: 220px;
+    background-color: #f3f3f4;
+    position: relative;
+}
+
+.empty img {
+    left: 35%;
+    position: absolute;
+    margin: 0 auto;
+    width: 130px;
+    top: 40px;
+}
+
+.dashboard h2 {
+    color: white;
+    background-color: #1D1725;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px 25px;
+    margin: 0;
+    display: inline-block;
+    font-size: 22px;
+}
+
+#chart {
+    border-radius: 0;
+    height: 170px;
+}
+
+.black_top_line {
+    display: flex;
+    height: 163px;
+    background: url("../../../../media/site/logo.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-color: #1D1725;
+}
+
+.black_top_line__left {
+    height: 163px;
+    padding: 25px 10px 0 245px;
+    border-right: 1px dashed #F3F3F4;
+}
+
+.black_top_line__h1 {
+    font-size: 45px !important;
+    color: white;
+    letter-spacing: 1px;
+    line-height: 55px;
+
+}
+
+.black_top_line__right {
+    width: 100%;
+    padding: 24px 24px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form_filter_row_item {
+    padding: 0 2px;
+    height: 36px;
+    display: inline-block;
+}
+
+.header_filter_form {
+    color: #595D6E;
+    text-align: center;
+    width: 200px;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+
+.h3_my {
+    color: #595D6E;
+    font-size: 26px;
+}
+
+#data_h1, #visualization_h1, #stylish_h1, #design_h1 {
+    color: white;
+    padding: 3px;
+    background: url("../../../../media/site/grey.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/*.h3_my_nav {*/
+/*    font-size: 26px;*/
+/*}*/
+
+.header_line {
+    padding: 25px 0 16px;
+    border-top: 1px dotted #ACAEB6;
+    /*border-bottom: 1px dotted #ACAEB6;*/
+}
+
+.my_nav {
+    list-style-type: none;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.my_nav a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.my_nav li {
+
+    /*margin-top: 30px;*/
+}
+
+
+.row_top {
+    padding: 16px 7px;
+    background: #F8F8F8;
+    border: 1px solid #E0E0E0;
+}
+
+.form_style {
+    line-height: 65px;
+}
+
+
+
+.img_list {
+    display: flex;
+    justify-content: space-around;
+    bottom: 0;
+}
+
+
+.img_list_item img {
+    width: 154px;
+    border-radius: 15px;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px dotted #ACAEB6;
+    margin-bottom: 10px;
+}
+
+.images_footer {
+    position: absolute;
+    bottom: 110px;
+}
+
+#vision_content {
+    margin: 0 auto;
+}
+
+.footer_buttons {
+    text-align: center;
+}
+
+.round {
+    border: 1px solid #dbdbdb;
+    border-radius: 15px;
+}
+
+#filter_result p, #indi_result p {
+    margin-top: 7px;
+    padding-left: 7px;
+    padding-bottom: 4px;
+    text-align: left;
+    font-size: 25px;
+    display: block;
+    background-color: #8062C1;
+    border-radius: 5px;
+    color: white;
+}
+
+
+#data {
+    z-index: 0;
+    display: none;
+    margin-bottom: 90px;
+}
+
+#visualization {
+    z-index: 0;
+    display: none;
+    margin-bottom: 90px;
+}
+
+
+#stylish {
+    display: none;
+    margin-bottom: 90px;
+}
+
+#design {
+    display: none;
+    margin-bottom: 90px;
+}
+
+
+.item {
+    display: inline-block;
+    text-align: -webkit-center;
+}
+
+.green {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.item h1 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: white;
+    background: #ACAEB6;
+    border-radius: 50px;
+    width: 50px;
+}
+
+.img_checkbox_label {
+    width: 212px; /* Ширина рисунка */
+    height: 154px; /* Высота рисунка */
+    display: inline-block; /* Блочный элемент */
+    position: relative; /* Относительное позиционирование */
+}
+
+.gray_disabled {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray; /* IE 6-9 */
+}
+
+.form_radio_group {
+
+    overflow: hidden;
+    text-align: center;
+}
+
+.form_radio_group-item {
+    display: inline-block;
+    margin-top: 80px;
+}
+
+#stylish_checkbox_item {
+    display: inline-block;
+    padding: 3px;
+}
+
+.form_radio_group input[type=radio], #stylish_checkbox input[type=radio] {
+    display: none;
+}
+
+
+#stylish_checkbox label {
+    display: inline-block;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 6px;
+    user-select: none;
+}
+
+
+.form_radio_group label {
+    display: inline-block;
+    cursor: pointer;
+    width: 196px;
+    height: 142px;
+    line-height: 34px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    user-select: none;
+
+}
+
+/* Not Checked */
+.form_radio_group input#radio-1[type=radio] + label {
+    background: url("../../../../media/site/filters/1_mini.png");
+}
+
+/* Checked */
+.form_radio_group input#radio-1[type=radio]:checked + label {
+    background: #f3f3f4 url("../../../../media/site/filters/1_maxi.png") no-repeat;
+}
+
+/* Not Checked */
+.form_radio_group input#radio-2[type=radio] + label {
+    background: url("../../../../media/site/filters/2_mini.png");
+}
+
+/* Checked */
+.form_radio_group input#radio-2[type=radio]:checked + label {
+    background: #f3f3f4 url("../../../../media/site/filters/2_maxi.png") no-repeat;
+}
+
+/* Not Checked */
+.form_radio_group input#radio-3[type=radio] + label {
+    background: url("../../../../media/site/filters/3_mini.png");
+}
+
+/* Checked */
+.form_radio_group input#radio-3[type=radio]:checked + label {
+    background: #f3f3f4 url("../../../../media/site/filters/3_maxi.png") no-repeat;
+}
+
+/* Not Checked */
+.form_radio_group input#radio-4[type=radio] + label {
+    background: url("../../../../media/site/filters/4_mini.png");
+}
+
+/* Checked */
+.form_radio_group input#radio-4[type=radio]:checked + label {
+    background: #f3f3f4 url("../../../../media/site/filters/4_maxi.png") no-repeat;
+}
+
+/* Not Checked */
+.form_radio_group input#radio-5[type=radio] + label {
+    background: url("../../../../media/site/filters/5_mini.png");
+}
+
+/* Checked */
+.form_radio_group input#radio-5[type=radio]:checked + label {
+    background: #f3f3f4 url("../../../../media/site/filters/5_maxi.png") no-repeat;
+}
+
+.form_radio_group input[type=radio]:checked + label {
+    height: 169px;
+    padding-top: 12px;
+}
+
+
+/* Checked */
+#stylish_checkbox input[name=color_field]:checked + label {
+    height: 28px;
+    /*padding-top: 5px;*/
+}
+
+
+.promo {
+    width: 100%;
+    background: #F3F3F4;
+}
+
+.promo h3 {
+    background: #1D1725;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #F3F3F4;
+}
+
+.purple_btn {
+    background: #8062C1;
+    color: white;
+    border: 1px solid #d3c3e9;
+
+}
+
+.purple_btn:disabled {
+    background-color: #ACAEB6;
+}

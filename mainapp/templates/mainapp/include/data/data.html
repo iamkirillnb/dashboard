@@ -1,0 +1,45 @@
+<div id="data">
+    <div class="row  m-0">
+        <!-- Показатель -->
+        <div class="col pl-2 pr-2">
+            <div class="row m-0">
+                <div class="col-sm header_line">
+                    <h3 class="h3_my font-weight-light">ПОКАЗАТЕЛЬ:</h3>
+                </div>
+                <div class="col-sm header_line">
+                    <!-- Показатель -->
+                    {% include 'mainapp/include/data/indicator_form.html' %}
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="row mx-auto text-center">
+                    <div class="col header_line">
+                        <div id="indi_result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Фильтр -->
+        <div class="col pl-2 pr-2">
+            <div class="row m-0">
+                <div class="col-sm header_line">
+                    <h3 class="h3_my font-weight-light">ФИЛЬТР:&nbsp;&nbsp;</h3>
+                </div>
+                <div class="col-sm header_line">
+                    <!-- Фильтр -->
+                    {% include 'mainapp/include/data/filter_form.html' %}
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="row mx-auto text-center">
+                    <div class="col header_line">
+                        <div id="filter_result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
