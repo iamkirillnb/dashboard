@@ -1,18 +1,32 @@
-let headerFilters = [period_block, done_block, plan_block]
+'use strict'
+
+// let headerFilters = [period_block, done_block, plan_block]
 
 
 let visial_flag = true;
-
+let select_item = document.getElementById("select_item");
 function showCheckboxesVisualization() {
     let checkboxes3 = document.getElementById("checkboxes_visualization");
     if (!visial_flag) {
         checkboxes3.style.display = "block";
         visial_flag = true;
+        // select_item.style.borderBottomLeftRadius = 0;
+        // select_item.style.borderBottomRightRadius = 0;
+        // select_item.style.borderBottom = 0;
+        // checkboxes3.style.borderTopLeftRadius = 0;
+        // // checkboxes3.style.position = 'inherit';
+        // checkboxes3.style.borderTop = 0;
     } else {
         checkboxes3.style.display = "none";
         visial_flag = false;
+        // select_item.style.border = 1;
+        // select_item.style.borderRadius = 5;
+        // select_item.style.borderBottom = 1;
+        // checkboxes3.style.borderTopLeftRadius = 1;
+        // checkboxes3.style.borderTop = 1;
     }
 }
+
 
 // Выбор показателей
 $('#checkboxes_indicator').on('change', function () {
@@ -46,7 +60,6 @@ $('#checkboxes_filter').on('change', function () {
     $.ajax({
         data: {'values_filter': JSON.stringify(values_filter)}
     });
-
     let b_right = document.getElementById("filter_result");
     $(b_right).html('');
     values_filter.forEach(e => b_right.innerHTML += "<p>" + e + "</p>");
@@ -74,7 +87,7 @@ wind3.onclick = function () {
         }
     } else {
         radio_visual_on.classList.remove('gray_disabled')
-        radio_visual_on.style.display = 'block';
+        radio_visual_on.style.display = 'flex';
         for (let i = 1; i <= 5; i++) {
             document.getElementById("radio-" + i).disabled = false;
         }

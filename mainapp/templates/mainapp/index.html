@@ -21,7 +21,7 @@
 <body>
 <div class="black_top_line">
     <div class="black_top_line__left">
-        <h1 class="black_top_line__h1 font-weight-light">ОБРАБОТКА&nbsp;ОБРАЩЕНИЙ
+        <h1 class="black_top_line__h1 font-weight-light m-0">ОБРАБОТКА&nbsp;ОБРАЩЕНИЙ
             НАЛОГОПЛАТЕЛЬЩИКОВ</h1>
     </div>
     <div class="black_top_line__right">
@@ -30,7 +30,8 @@
 </div>
 <div class="center_contextine">
     <div class="dashboard">
-        <div class="A_one"><h2 class="font-weight-light">ТОП-5 ТЕМАТИК</h2></div>
+        <div class="A_one"><h2 class="font-weight-light">ТОП-5 ТЕМАТИК</h2>
+            <h3 id="importamt"></h3></div>
         <div class="group_A_2_3">
             <div class="A_two"><h2 class="font-weight-light">НАРУШЕН СРОК</h2></div>
             <div class="A_three"><h2 class="font-weight-light">СРЕДНЕЕ ВРЕМЯ</h2></div>
@@ -43,13 +44,19 @@
         </div>
         <div class="B_two">
             <h2 class="font-weight-light">КОЛИЧЕСТВО ПО ДНЯМ</h2>
-            {#            <div id="chart"></div>#}
+            <div id="main_graph" class="mr-5"></div>
         </div>
         <div class="empty"><h2 class="font-weight-light">EMPTY</h2><img
                 src="{% static '../../../media/site/lego.png' %}"></div>
 
     </div>
-    <button id="myBtn">кнопка</button>
+    <br>
+    <br>
+    <button class="btn btn-warning" id="myBtn">РЕДАКТИРОВАНИЕ</button>
+    <button class="btn btn-success" id="form_graph" onclick="print_page()">СФОРМИРОВАТЬ</button>
+    <button class="btn btn-danger" onclick="reload_page()">ОЧИСТИТЬ</button>
+    <br>
+    <br>
 </div>
 
 
@@ -75,7 +82,7 @@
                         </button>
                         <button class=" btn-lg pl-5 pr-5 purple_btn" id="next_button" onclick="nextPage()">Далее
                         </button>
-                        <button class=" btn-lg pl-5 pr-5 purple_btn" id="done_button" onclick="donePage()">Готово
+                        <button class=" btn-lg pl-5 pr-5 purple_btn" id="done_button">Готово
                         </button>
                     </footer>
                 </div>

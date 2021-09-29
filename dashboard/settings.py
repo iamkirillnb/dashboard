@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dashboard2',
+        'NAME': 'dashboard',
         'USER': 'root',
         'PASSWORD': '0000',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
