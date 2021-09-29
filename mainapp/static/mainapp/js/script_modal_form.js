@@ -13,21 +13,7 @@ $('input[name="datefilter"]').daterangepicker({
 
 btn.onclick = function () {
     modal.style.display = "block";
-
-    // create_readable_data(perdiod);
-    perdiod = perdiod.val().split(',');
-    for (let key in perdiod) {
-        data_list.push([perdiod[key]])
-    }
 }
-
-// Фильтр по периоду
-let perdiod = $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
-    $(this).val(picker.startDate.format('YYYY-MM-DD') + ',' + picker.endDate.format('YYYY-MM-DD'));
-});
-
-
-let data_list = new Array();
 
 // Главный график на первой странице
 let options1 = {
@@ -52,7 +38,7 @@ main_graph.render();
 // График для предварительного просмотра в модальном окне
 let options2 = {
     chart: {
-        height: 290,
+        height: 280,
         type: 'bar',
     },
     dataLabels: {
@@ -84,6 +70,9 @@ let options3 = {
         },
     },
     labels: ['Cricket'],
+    noData: {
+        text: 'Loading...'
+    }
 };
 
 let answer = new ApexCharts(document.querySelector("#answer"), options3);
@@ -92,7 +81,6 @@ answer.render();
 
 span.onclick = function () {
     modal.style.display = "none";
-    perdiod = '';
 }
 // Кнопки назад, далее и готово
 let back_button = document.getElementById('back_button');
@@ -129,14 +117,31 @@ back_button.disabled = page_number === 0;
 // Получение базы по api
 let xhr = new XMLHttpRequest();
 let bigData;
-xhr.open('GET', 'http://127.0.0.1:8000/api/my_models/', false);
-xhr.send();
-if (xhr.status !== 200) {
-    console.log(xhr.status + ': ' + xhr.statusText);
-} else {
-    bigData = JSON.parse(xhr.responseText);
-}
+xhr.open("GET", "http://127.0.0.1:8000/api/my_models/", true);
+xhr.onload = function (e) {
+    if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            bigData = JSON.parse(xhr.responseText);
 
+        } else {
+            console.error(xhr.statusText);
+        }
+    }
+};
+xhr.onerror = function (e) {
+    console.error(xhr.statusText);
+};
+xhr.send(null);
+
+// let bigData;
+// xhr.open('GET', 'http://127.0.0.1:8000/api/my_models/', true);
+//
+// if (xhr.status !== 200) {
+//     console.log(xhr.status + ': ' + xhr.statusText);
+// } else {
+//     bigData = JSON.parse(xhr.responseText);
+// }
+// xhr.send();
 
 window.onclick = function (event) {
     if (event.target === modal) {
@@ -354,9 +359,6 @@ function get_data(models) {
         visualfields.push($(el).val().replace('_', ' '))
     })
     models = models.filter(model => visualfields.includes(model.name));
-    // if (values_filter.includes('дата')) {
-    //     models = models.filter(model => (Date.parse(data_list[0]) <= Date.parse(model.date) && Date.parse(data_list[1]) >= Date.parse(model.date)));
-    // }
     for (let i = 0; i < Object.keys(models).length; i++) {
         if (!modelDict.hasOwnProperty(models[i].name))
             modelDict[models[i].name] = {
@@ -430,7 +432,7 @@ function printPie(arr) {
     let options = {
         series: series,
         chart: {
-            width: 400,
+            height: 265,
             type: 'pie',
         },
         labels: datas,
@@ -459,10 +461,15 @@ function printArea(arr) {
     let datas = [];
     for (let key in arr) {
         series.push({
-            name: key,
-            type: 'line',
-            data: arr[key].fact
-        })
+                name: `${key} - fact`,
+                type: 'line',
+                data: arr[key].fact
+            },
+            {
+                name: `${key} - plan`,
+                type: 'line',
+                data: arr[key].plan
+            })
         datas.push(arr[key].data)
     }
     let options = {
@@ -470,8 +477,7 @@ function printArea(arr) {
         series: series,
         chart: {
 
-            height: 174,
-            // height: 220,
+            height: 265,
             type: 'line',
             zoom: {
                 enabled: false
@@ -521,7 +527,7 @@ function printBar(arr) {
     let options = {
         series: series,
         chart: {
-            height: 174,
+            height: 265,
             type: 'bar',
         },
         plotOptions: {
@@ -563,7 +569,7 @@ function printVertBar(arr) {
         chart: {
             // height: '100%',
             type: 'line',
-            width: '100%'
+            height: 265,
         },
         stroke: {
             width: [0, 6]
@@ -618,7 +624,7 @@ function printWtf(arr) {
         series: series,
         chart: {
 
-            width: 450,
+            height: 265,
             type: 'radar',
             dropShadow: {
                 enabled: true,
@@ -692,5 +698,26 @@ form_graph.onclick = function () {
     main_graph.destroy();
 
     $('#chart').clone(false).unwrap().appendTo('#main_graph');
-    chart.destroy();
+    // chart.destroy();
+
+// Фильтр по периоду
+    let data_list = new Array();
+    let perdiod = $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + '-' + picker.endDate.format('YYYY-MM-DD'));
+    });
+    perdiod = perdiod.val().split('-');
+    for (let key in perdiod) {
+        data_list.push([perdiod[key]])
+    }
+    let models;
+    models = bigData;
+    console.log('data_list');
+    console.log(data_list);
+    console.log('before');
+    console.log(models);
+    // models = models.filter(model => (Date.parse('2021-09-03')) == Date.parse(model.date));
+    models = models.filter(model => (Date.parse(data_list[0]) <= Date.parse(model.date) && Date.parse(data_list[1]) >= Date.parse(model.date)));
+    console.log('after');
+    console.log(models);
+
 }

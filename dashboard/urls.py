@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 urlpatterns = [
@@ -24,5 +25,14 @@ urlpatterns = [
     path('demo', include('demo.urls', namespace='demo')),
     path('api/', include('apiapp.urls', namespace='django_rest'))
 ]
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    if settings.MEDIA_ROOT:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
+
+# Эта строка опциональна и будет добавлять url'ы только при DEBUG = True
+
+urlpatterns += staticfiles_urlpatterns()

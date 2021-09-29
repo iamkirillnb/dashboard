@@ -50,6 +50,7 @@
 }
 
 #visualization_select_box {
+    position: relative;
     margin-top: 16px;
 }
 
@@ -75,7 +76,6 @@
     color: #333;
     white-space: nowrap;
     margin:5px 0 7px;
-    padding-right: 13px;
 }
 
 
