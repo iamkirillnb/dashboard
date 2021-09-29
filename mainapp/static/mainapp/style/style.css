@@ -9,7 +9,6 @@
 
 
 .center_contextine {
-    /*line-height: 100vh;*/
     margin: 30px 100px 0;
 }
 
@@ -105,6 +104,9 @@
 #main_graph {
     top: 20px;
     position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-right: 20px;
 }
 
 #chart {
@@ -173,14 +175,10 @@
     background-position: center;
 }
 
-/*.h3_my_nav {*/
-/*    font-size: 26px;*/
-/*}*/
 
 .header_line {
     padding: 25px 0 16px;
     border-top: 1px dotted #ACAEB6;
-    /*border-bottom: 1px dotted #ACAEB6;*/
 }
 
 .my_nav {

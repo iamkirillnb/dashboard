@@ -2,8 +2,9 @@
 
 var modal = document.getElementById('myModal');
 var btn = document.getElementById("myBtn");
-// var subm = document.getElementById("subm");
 var span = document.getElementsByClassName("close")[0];
+
+let main_graph = document.getElementById('main_graph')
 
 $('input[name="datefilter"]').daterangepicker({
     locale: {
@@ -15,30 +16,31 @@ btn.onclick = function () {
     modal.style.display = "block";
 }
 
-// Главный график на первой странице
-let options1 = {
-    chart: {
-        height: 222,
-        type: 'bar',
-    },
-    dataLabels: {
-        enabled: false
-    },
-    series: [],
-    title: {
-        text: '',
-    },
-    noData: {
-        text: 'Loading...'
-    }
-}
-let main_graph = new ApexCharts(document.querySelector("#main_graph"), options1);
-main_graph.render();
+// // Главный график на первой странице
+// let options1 = {
+//     chart: {
+//         // width: 700,
+//         // height: 260,
+//         type: 'bar',
+//     },
+//     dataLabels: {
+//         enabled: false
+//     },
+//     series: [],
+//     title: {
+//         text: '',
+//     },
+//     noData: {
+//         text: 'Loading...'
+//     }
+// }
+// let main_graph = new ApexCharts(document.querySelector("#main_graph"), options1);
+// main_graph.render();
 
 // График для предварительного просмотра в модальном окне
 let options2 = {
     chart: {
-        height: 280,
+        height: 265,
         type: 'bar',
     },
     dataLabels: {
@@ -51,6 +53,7 @@ let options2 = {
     noData: {
         text: 'Loading...'
     }
+
 }
 let chart = new ApexCharts(document.querySelector("#chart"), options2);
 chart.render();
@@ -219,38 +222,12 @@ function backPage() {
 
     if (sites[page_number] === stylish) {
         createStylishCheckboxes();
-        main_graph.destroy();
-        let type_of_graph = $('[name="radio"]:checked').val();
-        switch (type_of_graph) {
-
-            case 'areachart':
-                chart.destroy();
-                answer.destroy();
-                printArea(get_data(bigData));
-                break;
-            case 'pie':
-                chart.destroy();
-                answer.destroy();
-                printPie(get_data(bigData));
-                break;
-            case 'bar':
-                chart.destroy();
-                answer.destroy();
-                printBar(get_data(bigData));
-                break;
-            case 'wtf':
-                chart.destroy();
-                answer.destroy();
-                printWtf(get_data(bigData));
-                break;
-        }
+        main_graph.innerHTML = '';
+        get_data(bigData);
     }
 }
 
 function nextPage() {
-    if (sites[page_number + 1] == design) {
-
-    }
     back_button.disabled = false;
     if (page_number + 1 === sites.length - 1) {
         next_button.disabled = true;
@@ -289,36 +266,9 @@ function nextPage() {
             break
     }
     if (sites[page_number] === stylish) {
-        main_graph.destroy();
         createStylishCheckboxes();
-        let type_of_graph = $('[name="radio"]:checked').val();
-        switch (type_of_graph) {
-            case 'areachart':
-                chart.destroy();
-                answer.destroy();
-                printArea(get_data(bigData));
-                break;
-            case 'pie':
-                chart.destroy();
-                answer.destroy();
-                printPie(get_data(bigData));
-                break;
-            case 'bar':
-                chart.destroy();
-                answer.destroy();
-                printBar(get_data(bigData));
-                break;
-            case 'vertbar':
-                chart.destroy();
-                answer.destroy();
-                printVertBar(get_data(bigData));
-                break;
-            case 'wtf':
-                chart.destroy();
-                answer.destroy();
-                printWtf(get_data(bigData));
-                break;
-        }
+        main_graph.innerHTML = '';
+        get_data(bigData);
     }
 }
 
@@ -384,12 +334,36 @@ function get_data(models) {
         }
     }
     status_ok = status_ok * 100 / answer_len
+
+    chart.destroy();
+    answer.destroy();
+
     get_answer(status_ok);
+
+    let type_of_graph = $('[name="radio"]:checked').val();
+    switch (type_of_graph) {
+        case 'areachart':
+            printArea(modelDict);
+            break;
+        case 'pie':
+            printPie(modelDict);
+            break;
+        case 'bar':
+            printBar(modelDict);
+            break;
+        case 'vertbar':
+            printVertBar(modelDict);
+            break;
+        case 'wtf':
+            printWtf(modelDict);
+            break;
+    }
+
     return modelDict;
 }
 
 function get_answer(series) {
-    let options2 = {
+    let options3 = {
         series: [`${series.toFixed()}`],
 
         chart: {
@@ -416,7 +390,7 @@ function get_answer(series) {
         labels: [`${series.toFixed()}%`],
     };
 
-    let answer = new ApexCharts(document.querySelector("#answer"), options2);
+    let answer = new ApexCharts(document.querySelector("#answer"), options3);
     answer.render();
 }
 
@@ -429,7 +403,7 @@ function printPie(arr) {
         series.push(arr[key].fact.reduce((sum, current) => sum + current, 0) / arr[key].fact.length)
     }
 
-    let options = {
+    let options2 = {
         series: series,
         chart: {
             height: 265,
@@ -450,7 +424,7 @@ function printPie(arr) {
     };
 
 
-    let chart = new ApexCharts(document.querySelector("#chart"), options);
+    let chart = new ApexCharts(document.querySelector("#chart"), options2);
     chart.render();
 
 }
@@ -472,7 +446,7 @@ function printArea(arr) {
             })
         datas.push(arr[key].data)
     }
-    let options = {
+    let options2 = {
 
         series: series,
         chart: {
@@ -501,7 +475,7 @@ function printArea(arr) {
     };
 
 
-    let chart = new ApexCharts(document.querySelector("#chart"), options);
+    let chart = new ApexCharts(document.querySelector("#chart"), options2);
     chart.render();
 }
 
@@ -524,7 +498,7 @@ function printBar(arr) {
         })
         datas.push(arr[key].data)
     }
-    let options = {
+    let options2 = {
         series: series,
         chart: {
             height: 265,
@@ -546,7 +520,7 @@ function printBar(arr) {
     };
 
 
-    let chart = new ApexCharts(document.querySelector("#chart"), options);
+    let chart = new ApexCharts(document.querySelector("#chart"), options2);
     chart.render();
 }
 
@@ -564,7 +538,7 @@ function printVertBar(arr) {
         datas.push(arr[key].data);
         categories.push(key);
     }
-    let options = {
+    let options2 = {
         series: series,
         chart: {
             // height: '100%',
@@ -598,7 +572,7 @@ function printVertBar(arr) {
     };
 
 
-    let chart = new ApexCharts(document.querySelector("#chart"), options);
+    let chart = new ApexCharts(document.querySelector("#chart"), options2);
     chart.render();
 }
 
@@ -620,7 +594,7 @@ function printWtf(arr) {
         datas.push(arr[key].data);
         categories.push(arr[key].data);
     }
-    var options = {
+    var options2 = {
         series: series,
         chart: {
 
@@ -650,7 +624,7 @@ function printWtf(arr) {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    var chart = new ApexCharts(document.querySelector("#chart"), options2);
     chart.render();
 }
 
@@ -685,6 +659,8 @@ done_button.onclick = function () {
         form_graph.disabled = false;
     }
 
+    $('#chart').clone(false).unwrap().appendTo('#main_graph');
+
 }
 
 function reload_page() {
@@ -693,14 +669,11 @@ function reload_page() {
 }
 
 form_graph.onclick = function () {
-    let importamt = document.getElementById("importamt")
+    let important = document.getElementById("important")
 
-    main_graph.destroy();
-
-    $('#chart').clone(false).unwrap().appendTo('#main_graph');
-    // chart.destroy();
-
-// Фильтр по периоду
+    main_graph.innerHTML = '';
+    chart.destroy();
+    // Фильтр по периоду
     let data_list = new Array();
     let perdiod = $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('YYYY-MM-DD') + '-' + picker.endDate.format('YYYY-MM-DD'));
@@ -711,13 +684,9 @@ form_graph.onclick = function () {
     }
     let models;
     models = bigData;
-    console.log('data_list');
-    console.log(data_list);
-    console.log('before');
-    console.log(models);
-    // models = models.filter(model => (Date.parse('2021-09-03')) == Date.parse(model.date));
     models = models.filter(model => (Date.parse(data_list[0]) <= Date.parse(model.date) && Date.parse(data_list[1]) >= Date.parse(model.date)));
-    console.log('after');
-    console.log(models);
+    // main_graph.destroy();
+    $('#chart').clone(false).unwrap().appendTo('#main_graph');
 
+    get_data(models);
 }
