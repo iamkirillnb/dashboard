@@ -26,30 +26,28 @@ class Index(ListView):
 
     def get_context_data(self, **kwargs):
         fields_indicator = [field.verbose_name for field in IndicatorModel._meta.get_fields()[1:]]
-        indicator_form = IndicatorForm()
         context = super().get_context_data()
-        context['fields_indicator'] = fields_indicator[2:]
-        # context['indicator_form'] = indicator_form
-        unique = IndicatorModel.objects.all()
-        unique_names = {}
-        for i in unique:
+        context['fields_indicator'] = fields_indicator[:1] + fields_indicator[2:]
+        unique_names = []
+        for i in IndicatorModel.objects.all():
             if not i.name in unique_names:
-                unique_names[i.name] = {'fact': [i.fact], 'plan': [i.plan], 'date': [str(i.date)]}
+                unique_names.append(i.name)
             else:
-                unique_names[i.name]['fact'].append(i.fact)
-                unique_names[i.name]['plan'].append(i.plan)
-                unique_names[i.name]['date'].append(str(i.date))
-        labels = []
-        for i in unique_names:
-            labels.append(i)
-        context['indicator_form'] = labels
+                continue
+        context['indicator_form'] = unique_names
+        context['title'] = 'Navigation '
         return context
+
+
+def my_func(request):
+    name = 'kirill'
+    indicators = [i.name for i in IndicatorModel.objects.all()]
+    return JsonResponse({"name": name, "indicators": indicators}, status=200)
 
 
 class Pie(TemplateView):
     template_name = 'mainapp/pie.html'
     model = IndicatorModel
-
 
     def get_context_data(self, **kwargs):
         fields_indicator = [field.verbose_name for field in IndicatorModel._meta.get_fields()[1:]]

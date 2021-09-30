@@ -84,6 +84,10 @@
     vertical-align: middle;
 }
 
-#period_block, #done_block, #plan_block {
+#period_block, #done_block, #plan_block, #indicator_block {
     display: none;
 }
+
+/*#period_block, #done_block, #plan_block {*/
+/*    display: none;*/
+/*}*/

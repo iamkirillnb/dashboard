@@ -19,84 +19,12 @@
 <body>
 <style>
 
-    .form_radio_group {
-        display: flex;
-    }
-
-    .form_radio_group-item label {
-        background: url('../../../media/site/filters/1_mini.png');
-        /*background-repeat: no-repeat;*/
-        /*background-color: #5e5a64;*/
-        width: 196px;
-        height: 142px;
-        /*display: inline-block;*/
-        margin: 10px;
-        cursor: pointer;
-    }
-
-    .form_radio_group input {
-        display: none;
-    }
-
-    .form_radio_group input:checked + label {
-        margin-top: 5px;
-        height: 152px;
-    }
-
-    .red_block {
-        width: 800px;
-        margin: 50px auto 0;
-    }
 </style>
 
-<div class="form_style">
-    <select id="checkboxes_visualization" class="selectpicker show-menu-arrow" multiple>
-    </select>
-</div>
 
-<!--<button onclick="doit()">do</button>-->
-
-<div class="red_block">
-
-    <div class="form_radio_group gray_disabled" id="radio_visual_on">
-        <div class="form_radio_group-item">
-            <input id="radio-1" type="radio" name="radio" value="pie">
-            <label for="radio-1">&nbsp;</label>
-        </div>
-        <div class="form_radio_group-item">
-            <input id="radio-2" type="radio" name="radio" value="areachart">
-            <label for="radio-2">&nbsp;</label>
-        </div>
-        <div class="form_radio_group-item">
-            <input id="radio-3" type="radio" name="radio" value="bar">
-            <label for="radio-3">&nbsp;</label>
-        </div>
-        <div class="form_radio_group-item">
-            <input id="radio-4" type="radio" name="radio" value="vertbar">
-            <label for="radio-4">&nbsp;</label>
-        </div>
-        <div class="form_radio_group-item">
-            <input id="radio-5" type="radio" name="radio" value="wtf">
-            <label for="radio-5">&nbsp;</label>
-        </div>
-    </div>
-</div>
 <script>
-
-    // ) {
-    //     console.log('on')
-    //     $('.red_block').addClass('hovered')
-    // }))
-
-
-    let arr = ['1', 'af', 'rt', '124']
-    for (let i = 0; i < arr.length; i++) {
-        $('#checkboxes_visualization').append($('<option>', {
-            value: arr[i],
-            text: arr[i]
-        }))
-    }
-
+    let a = '#FD397A';
+    console.log(a.slice(0,-2) + 20)
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"

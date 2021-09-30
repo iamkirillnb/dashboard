@@ -1,6 +1,6 @@
 'use strict'
 
-// let headerFilters = [period_block, done_block, plan_block]
+
 
 
 let visial_flag = true;
@@ -10,20 +10,9 @@ function showCheckboxesVisualization() {
     if (!visial_flag) {
         checkboxes3.style.display = "block";
         visial_flag = true;
-        // select_item.style.borderBottomLeftRadius = 0;
-        // select_item.style.borderBottomRightRadius = 0;
-        // select_item.style.borderBottom = 0;
-        // checkboxes3.style.borderTopLeftRadius = 0;
-        // // checkboxes3.style.position = 'inherit';
-        // checkboxes3.style.borderTop = 0;
     } else {
         checkboxes3.style.display = "none";
         visial_flag = false;
-        // select_item.style.border = 1;
-        // select_item.style.borderRadius = 5;
-        // select_item.style.borderBottom = 1;
-        // checkboxes3.style.borderTopLeftRadius = 1;
-        // checkboxes3.style.borderTop = 1;
     }
 }
 
@@ -76,7 +65,6 @@ wind3.onclick = function () {
     let visual_arr = [];
     $('[name="visualfields"]:checked').each(function () {
         visual_arr.push($(this).val())
-        console.log(visual_arr)
     })
     let radio_visual_on = document.getElementById("radio_visual_on");
 
