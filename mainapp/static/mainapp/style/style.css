@@ -152,11 +152,15 @@
     height: 36px;
     display: inline-block;
 }
+.black_top_line__right  label {
+    display: inline-block;
+    width: 110px;
+}
 
 .header_filter_form {
     color: #595D6E;
     text-align: center;
-    width: 200px;
+    width: 220px;
     padding: 4px 8px;
     border-radius: 5px;
 }

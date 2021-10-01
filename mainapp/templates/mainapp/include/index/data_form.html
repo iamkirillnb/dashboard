@@ -7,7 +7,7 @@
 <div id="done_block" class="form_filter_row_item">
     <label class="labels_header">ОТРАБОТАНО</label>
     <select class="header_filter_form" id="done_block_select">
-        <option selected disabled>выберите</option>
+        <option selected disabled>-----------</option>
         <option value="2">все значения</option>
         <option value="1">Отработано</option>
         <option value="0">Не отработано</option>
@@ -15,19 +15,19 @@
 </div>
 
 <div id="plan_block" class="form_filter_row_item">
-    <label class="labels_header">РЕГИОН</label>
-    <select class="header_filter_form">
-        <option selected disabled>выберите регион</option>
-        <option>Регион</option>
-        <option>Регион</option>
-        <option>Регион</option>
+    <label class="labels_header">ПЛАН</label>
+    <select class="header_filter_form" id="plan_achived_block_select">
+        <option selected disabled>-----------</option>
+        <option value="all_meanings">все значения</option>
+        <option value='target_achived'>Выполнен</option>
+        <option value='target_not_achived'>Не выполнен</option>
     </select>
 </div>
 
 <div id="indicator_block" class="form_filter_row_item">
     <label class="labels_header">ИСПОЛНИТЕЛЬ</label>
     <select class="selectpicker show-menu-arrow" multiple id="indicator_block_select">
-        <option disabled>выберите</option>
+        <option disabled>-----------</option>
         {% for j in indicator_form %}
             <option value="{{ j }}">{{ j }}</option>
         {% endfor %}

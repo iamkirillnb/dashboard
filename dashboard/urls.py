@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls', namespace='mainapp')),
     path('demo', include('demo.urls', namespace='demo')),
-    path('api/', include('apiapp.urls', namespace='django_rest'))
+    path('api/', include('apiapp.urls', namespace='django_rest')),
 ]
 # if settings.DEBUG:
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

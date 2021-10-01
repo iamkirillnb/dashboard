@@ -397,10 +397,6 @@ function printPie(arr, my_color) {
     } else {
         color = [my_color];
     }
-    if (datas.length > 1) {
-        datas = [[]];
-    }
-
     let options2 = {
         series: series,
         chart: {
@@ -422,7 +418,7 @@ function printPie(arr, my_color) {
             },
         ],
         xaxis: {
-            categories: datas[0],
+            categories: datas,
         },
         colors: color,
     };
@@ -459,9 +455,6 @@ function printArea(arr, my_color) {
         color = ["#69b1b7", "#d29c83", "#6ca76f"];
     } else {
         color = [my_color];
-    }
-    if (series.length > 1) {
-        datas = [];
     }
     let options2 = {
         series: series,
@@ -520,9 +513,6 @@ function printBar(arr, my_color) {
     } else {
         color = my_color;
     }
-    if (series.length > 1) {
-        datas = [];
-    }
     let options2 = {
         series: series,
         chart: {
@@ -570,9 +560,6 @@ function printVertBar(arr) {
             }
         });
         categories.push(key);
-    }
-    if (series.length > 1) {
-        datas = [];
     }
     let options2 = {
         series: series,
@@ -673,6 +660,7 @@ let period_block = document.getElementById("period_block");
 let done_block = document.getElementById("done_block");
 let plan_block = document.getElementById("plan_block");
 let indicator_block = document.getElementById("indicator_block");
+let plan_achived_block = document.getElementById("plan_achived_block");
 
 done_button.onclick = function () {
     let count_filters = 0;
@@ -754,12 +742,27 @@ form_graph.onclick = function () {
         );
     }
     if (done_block.style.display === "block") {
-        // let done_block_select = [];
+        // Фильтр по отработанным / не отработанным 
         let done_selector = $("#done_block_select :selected").val();
         if (done_selector != 2) {
             models = models.filter((model) => model.active == done_selector);
         }
         models = models;
+    }
+    if (plan_block.style.display === "block") {
+        // Фильтр выполнению плана
+        let plan_achived_block_select = $("#plan_achived_block_select :selected").val();
+        switch (plan_achived_block_select) {
+            case 'target_achived':
+                models = models.filter(model => (+model.fact >=  +model.plan));
+                break;
+            case 'target_not_achived':
+                models = models.filter(model => (+model.fact <  +model.plan));
+                break;
+            case 'all_meanings':
+                models = models;
+                break;
+        }
     }
 
     // main_graph.destroy();
