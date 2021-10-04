@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from .settings_production import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-vl8_di8ap@fy6vv4gwxwb-+(dgvm2!vpu&#$3+dr=)#xtyphv*'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vl8_di8ap@fy6vv4gwxwb-+(dgvm2!vpu&#$3+dr=)#xtyphv*')
+SECRET_KEY = SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -74,16 +75,7 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dashboard',
-        'USER': 'root',
-        'PASSWORD': '0000',
-        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-    }
-}
+DATABASES = DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

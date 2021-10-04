@@ -75,7 +75,7 @@
                 </div>
                 <div class="B_two">
                     <h2 class="font-weight-light">КОЛИЧЕСТВО ПО ДНЯМ</h2>
-                    <div id="main_graph" class="mr-5"></div>
+                    <div id="main_graph"><p class='block_description'>Loading ...</p></div>
                 </div>
                 <div class="empty">
                     <h2 class="font-weight-light">EMPTY</h2>
@@ -85,16 +85,8 @@
             <br />
             <br />
             <button class="btn btn-warning" id="myBtn">РЕДАКТИРОВАНИЕ</button>
-            <button
-                class="btn btn-success"
-                id="form_graph"
-                onclick="print_page()"
-            >
-                ОТФИЛЬТРОВАТЬ
-            </button>
-            <button class="btn btn-danger" onclick="reload_page()">
-                ОЧИСТИТЬ
-            </button>
+            <button class="btn btn-success" id="form_graph" onclick="print_page()">ОТФИЛЬТРОВАТЬ</button>
+            <button class="btn btn-danger" onclick="reload_page()">ОЧИСТИТЬ</button>
             <br />
             <br />
         </div>
@@ -119,23 +111,14 @@
                                 <button
                                     class="btn-lg pl-5 pr-5 purple_btn"
                                     id="back_button"
-                                    onclick="backPage()"
-                                >
-                                    Назад
-                                </button>
+                                    onclick="backPage()">Назад</button>
                                 <button
                                     class="btn-lg pl-5 pr-5 purple_btn"
                                     id="next_button"
-                                    onclick="nextPage()"
-                                >
-                                    Далее
-                                </button>
+                                    onclick="nextPage()">Далее</button>
                                 <button
                                     class="btn-lg pl-5 pr-5 purple_btn"
-                                    id="done_button"
-                                >
-                                    Готово
-                                </button>
+                                    id="done_button">Готово</button>
                             </footer>
                         </div>
                     </div>

@@ -561,3 +561,9 @@ li {
     padding: 0 10px;
     border-radius: 5px;
 }
+
+.block_description {
+    text-align: center;
+    top: 100px;
+    position: relative;
+}

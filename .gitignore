@@ -1,1 +1,6 @@
 /db.old_one
+.pytest_cache
+dashboard/settings_production.py
+dashboard/__pycache__/settings_production.cpython-39.pyc
+__pycache__/
+db.json
