@@ -1,7 +1,4 @@
-'use strict'
-
-
-
+"use strict";
 
 let visial_flag = true;
 let select_item = document.getElementById("select_item");
@@ -16,13 +13,11 @@ function showCheckboxesVisualization() {
     }
 }
 
-
 // Выбор показателей
-$('#checkboxes_indicator').on('change', function () {
+$("#checkboxes_indicator").on("change", function () {
     let values_indicator = [];
-    $('#checkboxes_indicator :selected').each(function () {
+    $("#checkboxes_indicator :selected").each(function () {
         values_indicator.push($(this).val());
-
     });
     // $.ajax({
     //     data: {
@@ -30,45 +25,40 @@ $('#checkboxes_indicator').on('change', function () {
     //     }
     // });
     let b_left = document.getElementById("indi_result");
-    $(b_left).html('');
-    values_indicator.forEach(e => b_left.innerHTML += "<p>" + e + "</p>")
-    let values_names = document.getElementById('checkboxes_visualization');
-    $(values_names).html('');
-    for (let i = 0; i < values_indicator.length; i++) {
-        values_names.innerHTML += `<label class="form-check-label" for=${i}><input class="form-check-input" type=checkbox value=${values_indicator[i].replace(' ', '_')} name=visualfields id=${i}>${values_indicator[i].replace(' ', '_')}</label>`
-    }
-})
-
+    $(b_left).html("");
+    values_indicator.forEach((e) => (b_left.innerHTML += "<p>" + e + "</p>"));
+    fill_visual_select(values_indicator)
+});
 
 // Выбор фильтров
-$('#checkboxes_filter').on('change', function () {
+$("#checkboxes_filter").on("change", function () {
     let values_filter = [];
-    $('#checkboxes_filter :selected').each(function () {
+    $("#checkboxes_filter :selected").each(function () {
         values_filter.push($(this).val());
     });
     $.ajax({
-        data: {'values_filter': JSON.stringify(values_filter)}
+        data: { values_filter: JSON.stringify(values_filter) },
     });
     let b_right = document.getElementById("filter_result");
-    $(b_right).html('');
-    values_filter.forEach(e => b_right.innerHTML += "<p>" + e + "</p>");
-
+    $(b_right).html("");
+    values_filter.forEach((e) => (b_right.innerHTML += "<p>" + e + "</p>"));
 });
 
 for (let i = 1; i <= 5; i++) {
     document.getElementById("radio-" + i).disabled = true;
 }
 
-// Выбор показателей на вкладке визуализация
-let wind3 = document.getElementById('checkboxes_visualization');
-wind3.onclick = function () {
-    let visual_arr = [];
-    $('[name="visualfields"]:checked').each(function () {
-        visual_arr.push($(this).val())
-    })
+
+$("#visual_select").on("change", function () {
+    let number =  $("#visual_select :selected").length;
+    visible_radio_graphs(number);
+})
+
+
+function visible_radio_graphs(number) {
     let radio_visual_on = document.getElementById("radio_visual_on");
 
-    if (visual_arr.length < 2) {
+    if (number < 2) {
         radio_visual_on.classList.add('gray_disabled');
         for (let i = 1; i <= 5; i++) {
             document.getElementById("radio-" + i).disabled = true;
@@ -82,3 +72,36 @@ wind3.onclick = function () {
     }
 }
 
+class Selections {
+    constructor() {
+        this.values_indicator = [];
+    }
+    fill_in_arr() {
+        let arr = this.values_indicator;
+        $("#checkboxes_indicator :selected").each(function () {
+            arr.push($(this).val());
+        });
+    }
+    get_arr() {
+        return this.values_indicator;
+    }
+    fill_data(array) {
+        $("#visual_select").html("");
+        $("#visual_select").selectpicker("refresh");
+        for (let i = 0; i < array.length; i++) {
+            $("#visual_select").append(
+                '<option value="' + array[i] + '">' + array[i] + "</option>"
+            );
+            $("#visual_select").selectpicker("refresh");
+        }
+    }
+}
+
+function fill_visual_select() {
+    let fill_arr;
+    let select_arr = new Selections();
+    select_arr.fill_in_arr();
+    fill_arr = select_arr.get_arr();
+    console.log(fill_arr);
+    select_arr.fill_data(fill_arr);
+}

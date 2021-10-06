@@ -115,9 +115,10 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'dashboard', 'static'),
-)
+if DEBUG:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'dashboard', 'static'),
+    )
 
 MEDIA_URL = '/media/'
 

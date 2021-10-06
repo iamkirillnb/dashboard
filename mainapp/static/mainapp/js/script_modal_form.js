@@ -1,5 +1,8 @@
 "use strict";
 
+
+
+
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
@@ -291,9 +294,13 @@ function get_data(models, color) {
     });
     let modelDict = {};
     chart.innerHTML = "";
-    $('[name="visualfields"]:checked').map(function (i, el) {
-        visualfields.push($(el).val().replace("_", " "));
+    // $('[name="visualfields"]:checked').map(function (i, el) {
+    //     visualfields.push($(el).val().replace("_", " "));
+    // });
+    $("#visual_select :selected").each(function () {
+        visualfields.push($(this).val());
     });
+    // console.log(values_filter);
     models = models.filter((model) => visualfields.includes(model.name));
     for (let i = 0; i < Object.keys(models).length; i++) {
         if (!modelDict.hasOwnProperty(models[i].name))

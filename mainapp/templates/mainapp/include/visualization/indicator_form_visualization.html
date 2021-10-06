@@ -1,11 +1,12 @@
-<div id="visualization_select_box"
-     onclick="showCheckboxesVisualization()">
+{% comment %} <div id="visualization_select_box" onclick="showCheckboxesVisualization()">
     <select id="select_item">
         <option>Выберите показатель:&nbsp;</option>
     </select>
     <div class="overSelect_fields"></div>
 </div>
-<div id="checkboxes_visualization" class="form-check">
+<div id="checkboxes_visualization" class="form-check"></div> {% endcomment %}
 
-</div>
-
+<div id="visualization_select_box">
+    <select class="selectpicker" data-style="btn-warning" data-width="200px" id="visual_select" multiple>
+    </select>
+</div> 
