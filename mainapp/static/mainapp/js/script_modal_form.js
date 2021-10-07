@@ -6,7 +6,6 @@
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
-
 let main_graph = document.getElementById("main_graph");
 
 $('input[name="datefilter"]')
@@ -14,9 +13,7 @@ $('input[name="datefilter"]')
         locale: {
             format: "YYYY/MM/DD",
         },
-    })
-    .val()
-    .split("-");
+    }).val();
 
 btn.onclick = function () {
     modal.style.display = "block";
@@ -99,7 +96,15 @@ data_h1.style.backgroundPosition = "center";
 back_button.disabled = page_number === 0;
 
 // Получение базы по api
-let xhr = new XMLHttpRequest();
+var xhr;
+
+if (window.XMLHttpRequest) {
+// Chrome, Mozilla, Opera, Safari
+  xhr = new XMLHttpRequest();
+} else if (window.ActiveXObject) {
+    // Internet Explorer
+  xhr = new ActiveXObject("Microsoft.XMLHTTP");
+}
 let bigData;
 xhr.open("GET", "http://127.0.0.1:8000/api/my_models/", true);
 xhr.onload = function (e) {
@@ -129,8 +134,8 @@ function visual_menu() {
         next_button.hidden = false;
         next_button.disabled = false;
     }
-    $('[name="indicator_field"]').prop("checked", false);
-    $('[name="visualfields"]').prop("checked", false);
+    // $('[name="indicator_field"]').prop("checked", false);
+    // $('[name="visualfields"]').prop("checked", false);
 
     sites[0].style.display = "block";
     data_h1.style.backgroundImage = 'url("../../../../media/site/purple.png")';
@@ -294,13 +299,9 @@ function get_data(models, color) {
     });
     let modelDict = {};
     chart.innerHTML = "";
-    // $('[name="visualfields"]:checked').map(function (i, el) {
-    //     visualfields.push($(el).val().replace("_", " "));
-    // });
     $("#visual_select :selected").each(function () {
         visualfields.push($(this).val());
     });
-    // console.log(values_filter);
     models = models.filter((model) => visualfields.includes(model.name));
     for (let i = 0; i < Object.keys(models).length; i++) {
         if (!modelDict.hasOwnProperty(models[i].name))
@@ -722,13 +723,14 @@ form_graph.onclick = function () {
             "apply.daterangepicker",
             function (ev, picker) {
                 $(this).val(
-                    picker.startDate.format("YYYY-MM-DD") +
+                    picker.startDate.format("YYYY/MM/DD") +
                         "-" +
-                        picker.endDate.format("YYYY-MM-DD")
+                        picker.endDate.format("YYYY/MM/DD")
                 );
             }
         );
         perdiod = perdiod.val().split("-");
+        console.log(perdiod)
         for (let key in perdiod) {
             data_list.push([perdiod[key]]);
         }

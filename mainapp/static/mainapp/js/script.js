@@ -102,6 +102,5 @@ function fill_visual_select() {
     let select_arr = new Selections();
     select_arr.fill_in_arr();
     fill_arr = select_arr.get_arr();
-    console.log(fill_arr);
     select_arr.fill_data(fill_arr);
 }
