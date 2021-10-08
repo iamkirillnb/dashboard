@@ -37,32 +37,36 @@
         <div class="center_contextine">
             <div class="dashboard">
                 <div class="A_one">
-                    <h2 class="font-weight-light">ТОП-5 ТЕМАТИК</h2>
-                    <h3 id="important"></h3>
+                    <h2>ДОЛЯ ВЫПОЛНЕНИЯ ПЛАНА</h2>
+                    <div id='select_part_data'>
+                        <div id='part_content'>
+                            <div id='lines'></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="group_A_2_3">
                     <div class="A_two">
-                        <h2 class="font-weight-light">НАРУШЕН СРОК</h2>
+                        <h2>НАРУШЕН СРОК</h2>
                     </div>
                     <div class="A_three">
-                        <h2 class="font-weight-light">СРЕДНЕЕ ВРЕМЯ</h2>
+                        <h2>СРЕДНЕЕ ВРЕМЯ</h2>
                     </div>
                 </div>
 
                 <div class="A_four">
-                    <h2 class="font-weight-light">ОШИБКА ФНС</h2>
+                    <h2>ОШИБКА ФНС</h2>
                 </div>
 
                 <div class="B_one">
-                    <h2 class="font-weight-light">НАПРАВЛЕН ОТВЕТ</h2>
+                    <h2>НАПРАВЛЕН ОТВЕТ</h2>
                     <div id="answer"></div>
                 </div>
-                <div class="B_two">
-                    <h2 class="font-weight-light">КОЛИЧЕСТВО ПО ДНЯМ</h2>
+                <div class="B_two" id='b_two'>
+                    <h2 id='graphName'>КОЛИЧЕСТВО ПО ДНЯМ</h2>
                     <div id="main_graph"><p class='block_description'>Loading ...</p></div>
                 </div>
                 <div class="empty">
-                    <h2 class="font-weight-light">EMPTY</h2>
+                    <h2>EMPTY</h2>
                     <img src="{% static '../../../media/site/lego.png' %}" />
                 </div>
             </div>
@@ -78,7 +82,7 @@
         <div id="myModal" class="modal">
             <div id="modal_content">
                 <span class="close">&times;</span>
-                <div class="modal-header border-0 pb-0">
+                <div class="mt-4">
                     <ul class="modal_nav p-0 m-0">
                         <div id="id_pages"></div>
                             {% include 'mainapp/include/header_sidebar.html' %}

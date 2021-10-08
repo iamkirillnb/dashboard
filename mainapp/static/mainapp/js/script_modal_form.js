@@ -255,6 +255,7 @@ function nextPage() {
     if (sites[page_number] === stylish) {
         createStylishCheckboxes();
         main_graph.innerHTML = "";
+
         get_data(bigData);
     }
 }
@@ -303,14 +304,22 @@ function get_data(models, color) {
         visualfields.push($(this).val());
     });
     models = models.filter((model) => visualfields.includes(model.name));
+    let get_arr_data = [];
+    models.forEach((element) => {
+        if (!get_arr_data.includes(element.date)){
+            get_arr_data.push(element.date)
+        }
+    })
     for (let i = 0; i < Object.keys(models).length; i++) {
-        if (!modelDict.hasOwnProperty(models[i].name))
+        
+        if (!modelDict.hasOwnProperty(models[i].name)) {
             modelDict[models[i].name] = {
                 fact: [+models[i].fact],
                 plan: [+models[i].plan],
                 data: [models[i].date],
                 status: [+models[i].active],
-            };
+            }
+        }
         else {
             modelDict[models[i].name]["fact"].push(+models[i].fact);
             modelDict[models[i].name]["plan"].push(+models[i].plan);
@@ -332,28 +341,74 @@ function get_data(models, color) {
     answer.destroy();
 
     get_answer(status_ok);
-
+    // Перерисовка графика при нажатии на цвет
     let type_of_graph = $('[name="radio"]:checked').val();
+
+    // Фильтр графика по факту или планы
+    let args = document.getElementById("integerSelect").value;
+
+    // Отрисовка графика
     switch (type_of_graph) {
         case "areachart":
-            printArea(modelDict);
+            printArea(modelDict, color, args);
             break;
         case "pie":
-            printPie(modelDict, color);
+            printPie(modelDict, color, args);
             break;
         case "bar":
-            printBar(modelDict);
+            printBar(modelDict, color, args);
             break;
         case "vertbar":
-            printVertBar(modelDict);
+            printVertBar(modelDict, args);
             break;
         case "wtf":
-            printWtf(modelDict);
+            printWtf(modelDict, args);
             break;
     }
-
+    targe_achived(modelDict)
     return modelDict;
 }
+
+// Изменение показателя исходные данные ЦЕЛОЕ и перерисовка графика
+let integerSelect = document.getElementById("integerSelect");
+integerSelect.onchange = () => get_data(bigData);
+
+// Отображать / не отображать долю выполнения плана
+let partSelect = document.getElementById("partSelect");
+let select_part_data = document.getElementById("select_part_data");
+let part_content = document.getElementById("part_content");
+
+partSelect.onchange = () => {
+    if (partSelect.value == 'show') {
+        
+        get_data(bigData);
+    } else if (partSelect.value == 'notshow') {
+        part_content.innerHTML = '';
+        part_content.innerHTML = `<h1>Тут могла бы быть шкала выполнения планов!</h1>`;
+        select_part_data.appendChild(part_content)
+    }
+}
+
+Array.prototype.sum = function(){
+    var s = 0;
+    for (let i = 0; i < this.length; i++){
+       s += this[i]
+    }
+    return s / this.length
+ }
+
+
+function targe_achived(data) {
+    part_content.innerHTML = '';
+    for (let key in data) {
+        let total = ((data[key].fact.sum() * 100) / data[key].plan.sum()).toFixed(2);
+        part_content.innerHTML += `<p class="p-0 m-0">${key} </p><div class="progress p-0">
+        <div class="progress-bar"  style="width:${total}%; color:white; margin:0" aria-valuenow="${total}" aria-valuemin="0" aria-valuemax="100">${total}%</div>
+        </div>`;
+        select_part_data.appendChild(part_content)
+    }
+}
+
 
 function get_answer(series) {
     let options3 = {
@@ -387,16 +442,25 @@ function get_answer(series) {
 }
 
 // График вид Пирог
-function printPie(arr, my_color) {
+function printPie(arr, my_color, args) {
     let series = [];
     let datas = [];
     let labels = [];
     for (let key in arr) {
         labels.push(key);
-        series.push(
-            arr[key].fact.reduce((sum, current) => sum + current, 0) /
-                arr[key].fact.length
-        );
+
+        if (args == 'fact') {
+            series.push(
+                arr[key].fact.reduce((sum, current) => sum + current, 0) /
+                    arr[key].fact.length
+            );
+        }
+        if (args == 'plan') {
+            series.push(
+                arr[key].plan.reduce((sum, current) => sum + current, 0) /
+                    arr[key].plan.length
+            );
+        }
         datas.push(arr[key].data);
     }
     let color;
@@ -436,22 +500,38 @@ function printPie(arr, my_color) {
 }
 
 // График вид Линия
-function printArea(arr, my_color) {
+function printArea(arr, my_color, args) {
     let series = [];
     let datas = [];
     for (let key in arr) {
-        series.push(
-            {
+        // if (args == 'fact') {
+        //     series.push({
+        //         name: key,
+        //         type: "line",
+        //         data: arr[key].fact,
+        //     });
+        // }
+        // if (args == 'plan') {
+        //     series.push({
+        //         name: key,
+        //         type: "line",
+        //         data: arr[key].plan,
+        //     });
+        // }
+        if (args == "fact") {
+            series.push({
                 name: `${key} - fact`,
                 type: "line",
                 data: arr[key].fact,
-            },
-            {
+            });
+        }
+        if (args == "plan") {
+            series.push({
                 name: `${key} - plan`,
                 type: "line",
                 data: arr[key].plan,
-            }
-        );
+            });
+        }
         arr[key].data.map((key) => {
             if (!datas.includes(key)) {
                 datas = datas.concat(key);
@@ -501,14 +581,23 @@ colors_bar.onclick = function () {
 };
 
 // График вид Бары
-function printBar(arr, my_color) {
+function printBar(arr, my_color, args) {
     let series = [];
     let datas = [];
     for (let key in arr) {
-        series.push({
-            name: key,
-            data: arr[key].fact,
-        });
+        if (args == 'fact') {
+            series.push({
+                name: key,
+                data: arr[key].fact,
+            });
+        }
+        if (args == 'plan') {
+            series.push({
+                name: key,
+                data: arr[key].plan,
+            });
+        }
+        
         arr[key].data.map((key) => {
             if (!datas.includes(key)) {
                 datas = datas.concat(key);
@@ -551,16 +640,26 @@ function printBar(arr, my_color) {
 }
 
 // График вид вертикальыне Бары
-function printVertBar(arr) {
+function printVertBar(arr, args) {
     let series = [];
     let datas = [];
     let categories = [];
     for (let key in arr) {
-        series.push({
-            name: key,
-            type: "column",
-            data: arr[key].fact,
-        });
+        if (args == 'fact') {
+            series.push({
+                name: key,
+                type: "column",
+                data: arr[key].fact,
+            });
+        }
+        if (args == 'plan') {
+            series.push({
+                name: key,
+                type: "column",
+                data: arr[key].plan,
+            });
+        }
+        
 
         arr[key].data.map((key) => {
             if (!datas.includes(key)) {
@@ -609,22 +708,24 @@ function printVertBar(arr) {
 }
 
 // График вид сложные Бары
-function printWtf(arr) {
+function printWtf(arr, args) {
     let series = [];
     let series_plan = [];
     let datas = [];
     let categories = [];
     for (let key in arr) {
-        series.push(
-            {
-                name: key + " Fact",
+        if (args == 'fact') {
+            series.push({
+                name: key,
                 data: arr[key].fact,
-            },
-            {
-                name: key + " Plan",
+            });
+        }
+        if (args == 'plan') {
+            series.push({
+                name: key,
                 data: arr[key].plan,
-            }
-        );
+            });
+        }
         arr[key].data.map((key) => {
             if (!datas.includes(key)) {
                 datas = datas.concat(key);
@@ -664,13 +765,25 @@ function printWtf(arr) {
     chart.render();
 }
 
+// Блоки фильтров, которые отображаются после их выбора в select
 let period_block = document.getElementById("period_block");
 let done_block = document.getElementById("done_block");
 let plan_block = document.getElementById("plan_block");
 let indicator_block = document.getElementById("indicator_block");
 let plan_achived_block = document.getElementById("plan_achived_block");
 
+
+
 done_button.onclick = function () {
+    let B_two = document.querySelector('#b_two');
+    let graphName = document.querySelector('#graphName');
+    if (graphName) {
+        B_two.removeChild(graphName);
+    }
+    
+    let graph_input_name = document.createElement('h2');
+    graph_input_name.insertAdjacentHTML('beforeend', (document.getElementById("graphName_input").value).toUpperCase());
+    B_two.appendChild(graph_input_name);
     let count_filters = 0;
     modal.style.display = "none";
     let values_filter = [];

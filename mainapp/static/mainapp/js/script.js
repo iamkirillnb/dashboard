@@ -19,11 +19,6 @@ $("#checkboxes_indicator").on("change", function () {
     $("#checkboxes_indicator :selected").each(function () {
         values_indicator.push($(this).val());
     });
-    // $.ajax({
-    //     data: {
-    //         'values_indicator': JSON.stringify(values_indicator),
-    //     }
-    // });
     let b_left = document.getElementById("indi_result");
     $(b_left).html("");
     values_indicator.forEach((e) => (b_left.innerHTML += "<p>" + e + "</p>"));
@@ -35,9 +30,6 @@ $("#checkboxes_filter").on("change", function () {
     let values_filter = [];
     $("#checkboxes_filter :selected").each(function () {
         values_filter.push($(this).val());
-    });
-    $.ajax({
-        data: { values_filter: JSON.stringify(values_filter) },
     });
     let b_right = document.getElementById("filter_result");
     $(b_right).html("");

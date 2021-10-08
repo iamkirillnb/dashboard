@@ -25,13 +25,10 @@ urlpatterns = [
     path('demo', include('demo.urls', namespace='demo')),
     path('api/', include('apiapp.urls', namespace='django_rest')),
 ]
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 if settings.DEBUG:
-    if settings.MEDIA_ROOT:
-        urlpatterns += static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 # Эта строка опциональна и будет добавлять url'ы только при DEBUG = True
 

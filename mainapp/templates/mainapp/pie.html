@@ -1,85 +1,164 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
 
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+            crossorigin="anonymous"
+        />
 
-    <link rel="stylesheet "type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    
+        <link
+            rel="stylesheet "
+            type="text/css"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"
+        />
 
-    <title>Api</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row m-5">
-            <div class="col">
-                <select class="selectpicker" data-style='btn btn-secondary' multiple id="main">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Barbecue</option>
-                </select>
-            </div>
-            <div class='col'>
-                <button id="btn">ok</button>
-            </div>
-            <div class="col">
-                <select name='main2' class="selectpicker" data-style='btn btn-secondary' multiple id="main2">
-                </select>
-            </div>
-        </div>
-    </div>
-    <style>
-        * {
-            font-size: 16px;
-        }
-    </style>
-    <script>
-        class Selections {
-            constructor() {
-                this.values_indicator = [];
+        <title>Api</title>
+    </head>
+    <body>
+        <button id="btn">click</button>
+        <div id="items"></div>
+        <div id="chart"></div>
+        <style>
+            * {
+                font-size: 16px;
             }
-            fill_in_arr() {
-                let arr = this.values_indicator;
-                $("#checkboxes_indicator :selected").each(function () {
-                    arr.push($(this).val());
+        </style>
+        <script>
+            let big_data;
+            let url = "http://127.0.0.1:8000/api/my_models/";
+            let modelDict;
+            fetch(url)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((request) => {
+                    big_data = request;
+                })
+                .catch((err) => {
+                    console.log(err.text);
                 });
-            }
-            get_arr() {
-                return this.values_indicator;
-            }
-            fill_data(array) {
-                $('#main2').html('').selectpicker('refresh');
-                for (let i = 0; i < array.length; i++) {
-                    $("#main2").append('<option value="'+i+'">'+array[i]+'</option>');
-                    $('#main2').selectpicker('refresh');
-                }
-                
-                }
-            }
-        
-            // $('#main2').selectpicker();
-            
-        document.getElementById("btn").onclick = function () {
-            
-            let fill_arr;
-            let select_arr = new Selections();
-            select_arr.fill_in_arr();
-            fill_arr = select_arr.get_arr();
-            console.log(fill_arr);
-            select_arr.fill_data(fill_arr);
-        }
-        
 
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    
-</body>
+            let items = document.getElementById("items");
+
+            document.querySelector("#btn").addEventListener("click", () => {
+                items.innerHTML = "";
+                big_data = big_data.filter((element) => +element.plan < +element.fact);
+                console.log(big_data)
+                // console.log(re_data(big_data));
+                // printVertBar(re_data(big_data));
+                printVertBar(big_data);
+                big_data.forEach((element) => {
+                    let item = document.createElement("p");
+                    item.classList = "item";
+                    item.insertAdjacentHTML("beforeend", `${element.name}, ${element.plan}, ${element.fact}, ${element.date}`);
+                    items.appendChild(item);
+                });
+            });
+
+            function re_data(models) {
+                let modelDict = {};
+                for (let i = 0; i < Object.keys(models).length; i++) {
+                    if (!modelDict.hasOwnProperty(models[i].name))
+                        modelDict[models[i].name] = {
+                            fact: [+models[i].fact],
+                            plan: [+models[i].plan],
+                            data: [models[i].date],
+                            status: [+models[i].active],
+                        };
+                    else {
+                        modelDict[models[i].name]["fact"].push(+models[i].fact);
+                        modelDict[models[i].name]["plan"].push(+models[i].plan);
+                        modelDict[models[i].name]["data"].push(models[i].date);
+                        modelDict[models[i].name]["status"].push(+models[i].active);
+                    }
+                }
+                return modelDict
+            }
+
+            function printVertBar(arr) {
+                let series = [];
+                let datas = [];
+                let categories = [];
+                arr.forEach((element)=> {
+                    series.push({
+                    name: element.name,
+                    type: "column",
+                    data: [+element.fact],
+                    // labels: [element.date]
+                    })
+                    datas.push({
+                        myData: [element.date]
+                    }) 
+                }) 
+            let options2 = {
+                series: series,
+                chart: {
+                    // height: '100%',
+                    type: "bar",
+                    height: 265,
+                },
+                stroke: {
+                    width: [2, 6],
+                },
+                title: {
+                    text: "",
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                labels: [1,2,3,4],
+                xaxis: {
+                    type: "string",
+                },
+                yaxis: [
+                    {
+                        title: {
+                            text: 'График по "факт"',
+                        },
+                    },
+                    {
+                        opposite: true,
+                        title: {
+                            text: "",
+                        },
+                    },
+                ],
+            };
+
+            let chart = new ApexCharts(document.querySelector("#chart"), options2);
+            chart.render();
+        }
+
+
+
+            // let mas = [
+            //     { name: "Бананы", price: 2000 },
+            //     { name: "Сливы", price: 1000 },
+            //     { name: "Тыква", price: 1200 },
+            //     { name: "Ананасы", price: 3000 }
+            // ]
+            // console.log(mas);
+            // mas.sort(function (obj1, obj2) {
+            //     if (obj1.name < obj2.name) return -1;
+            //     if (obj1.name > obj2.name) return 1;
+            //     return 0;
+            //     });
+            // console.log(mas);
+
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    </body>
 </html>

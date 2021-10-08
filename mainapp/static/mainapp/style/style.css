@@ -305,6 +305,9 @@ li {
     display: inline-block;
     text-align: -webkit-center;
 }
+.item p {
+    text-align: center;
+}
 
 .green {
     display: block;
@@ -420,6 +423,23 @@ li {
     /*padding-top: 5px;*/
 }
 
+
+.select_item {
+    margin-top: 20px;
+    width: 200px;
+    border-radius: 5px;
+    padding: 4px 6px;
+}
+#graphName_input {
+    border-top-left-radius: 10px;
+    margin: -5px 0 -2px -3px;
+    color: #8062C1;
+}
+
+#select_part_data {
+    margin: 0;
+    box-sizing: border-box;
+}
 
 .promo {
     width: 100%;
